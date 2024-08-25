@@ -6,8 +6,6 @@ extern crate num;
 
 #[proc_macro_derive(GodotConvert)]
 pub fn godot_convert_derive(input: TokenStream) -> TokenStream {
-    //let ast = syn::parse(input).unwrap();
-    //impl_godot_convert(&ast)
     let name = &(syn::parse::<syn::DeriveInput>(input).unwrap()).ident;
     let gen = quote! {
         impl GodotConvert for #name {
