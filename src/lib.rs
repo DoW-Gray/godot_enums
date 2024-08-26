@@ -6,7 +6,7 @@ extern crate num;
 
 #[proc_macro_derive(GodotConvert)]
 pub fn godot_convert_derive(input: TokenStream) -> TokenStream {
-    let name = &(syn::parse::<syn::DeriveInput>(input).unwrap()).ident;
+    let name = syn::parse::<syn::DeriveInput>(input).unwrap().ident;
     let gen = quote! {
         impl GodotConvert for #name {
             type Via = i32;
@@ -17,7 +17,7 @@ pub fn godot_convert_derive(input: TokenStream) -> TokenStream {
 
 #[proc_macro_derive(ToGodot)]
 pub fn to_godot_derive(input: TokenStream) -> TokenStream {
-    let name = &(syn::parse::<syn::DeriveInput>(input).unwrap()).ident;
+    let name = syn::parse::<syn::DeriveInput>(input).unwrap().ident;
     let gen = quote! {
         impl ToGodot for #name {
             fn to_godot(&self) -> i32 { *self as i32 }
@@ -28,7 +28,7 @@ pub fn to_godot_derive(input: TokenStream) -> TokenStream {
 
 #[proc_macro_derive(FromGodot)]
 pub fn from_godot_derive(input: TokenStream) -> TokenStream {
-    let name = &(syn::parse::<syn::DeriveInput>(input).unwrap()).ident;
+    let name = syn::parse::<syn::DeriveInput>(input).unwrap().ident;
     let gen = quote! {
         impl FromGodot for #name {
             fn try_from_godot(via: i32) -> Result<#name, ConvertError> {
